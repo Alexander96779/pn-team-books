@@ -34,7 +34,7 @@ class Books extends Component {
 
     render () {
         const { books } = this.props;
-        console.log(books);
+        console.log(books.books.items);
         return(
             <div className="container">
                 <div className="container_tab1">
@@ -48,6 +48,7 @@ class Books extends Component {
                                 placeholder="Search book"
                                 name="searchWord"
                                 className="search"
+                                required
                                 onChange={this.handleChange}
                                 />
                                 <input
@@ -59,9 +60,27 @@ class Books extends Component {
                     </div>
                 </div>
                 <div className="container_tab2">
-                    <div className="container_tab2_glass">
+                    {books.books.items ? 
+                    books.books.items.map((book, index) => (
+                        <div key={index}>
+                            <div className="container_tab2_found">
+                            <div className="container_tab2_found_item">
+                            <h3>Title: {book.volumeInfo.title}</h3>
+                            <p><b>Author(s):</b> {book.volumeInfo.authors}</p>
+                            <p><b>Publisher:</b> {book.volumeInfo.publisher}</p>
+                            <div className="link">
+                            <a href={book.volumeInfo.infoLink} className="btn">Readmore</a>
+                            </div>
+                            </div>
+                            </div>
+                        </div>
+                    ))
 
+                    : 
+                    <div className="container_tab2_glass">
+                    
                     </div>
+                    }
                 </div>
             </div>
         )
